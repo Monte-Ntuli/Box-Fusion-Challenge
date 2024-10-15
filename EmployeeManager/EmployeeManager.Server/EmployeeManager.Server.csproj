@@ -23,4 +23,10 @@
     <ProjectReference Include="..\EmployeeManager.Shared\EmployeeManager.Shared.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Migrations\" />
+    <Folder Include="Entities\" />
+    <Folder Include="Repos\Interfaces\" />
+  </ItemGroup>
+
 </Project>
