@@ -39,7 +39,7 @@ namespace EmployeeManager.Server.Repos
             {
                 GenerateSkillID(userID);
             }
-            return userID;
+            return skillID;
         }
         public async Task<IEnumerable<SkillsEntity>> GetSkillsByUserID(string userID)
         {

@@ -25,9 +25,9 @@ namespace EmployeeManager.Server.Controllers
 
         #region Delete Skill
         [HttpDelete("DeleteSkillBySkillId/{skillId}")]
-        public async Task<IActionResult> Delete(string skillID)
+        public async Task<IActionResult> Delete(string skillId)
         {
-            var employeeSkill = await _unitOfWork.Skills.DeleteSkillsBySkillID(skillID);
+            var employeeSkill = await _unitOfWork.Skills.DeleteSkillsBySkillID(skillId);
             return Accepted(employeeSkill);
         }
         #endregion

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using EmployeeManager.Shared.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,23 +16,8 @@ namespace EmployeeManager.Shared.DTOs
         public string PhoneNum { get; set; }
         public DateTime DOB { get; set; }
         public bool isDeleted { get; set; }
-        public Address Addresss { get; set; } = new Address();
-        public List<Skill> Skills { get; set; } = new List<Skill>();
+        public AddressModel Addresss { get; set; } = new AddressModel();
+        public List<SkillsModel> Skills { get; set; } = new List<SkillsModel>();
 
-        public class Address
-        {
-            public string StreetAddress { get; set; }
-            public string City { get; set; }
-            public string PostalCode { get; set; }
-            public string Country { get; set; }
-        }
-
-        public class Skill
-        {
-            public string SkillID { get; set; }
-            public string Name { get; set; }
-            public int YearsExperience { get; set; }
-            public string Seniority { get; set; }
-        }
     }
 }

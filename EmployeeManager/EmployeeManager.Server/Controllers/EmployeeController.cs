@@ -5,6 +5,7 @@ using EmployeeManager.Shared.DTOs;
 using EmployeeManager.Shared.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using static EmployeeManager.Shared.DTOs.UpdateEmployeeDTO;
 
 namespace EmployeeManager.Server.Controllers
 {
@@ -186,25 +187,16 @@ namespace EmployeeManager.Server.Controllers
                     var employeeSkills = await _unitOfWork.Skills.GetSkillsByUserID(userID);
                     if (employeeSkills.Count() != 0)
                     {
-                        CreateEmployeeDTO employeeDetails = new()
+                        
+                        AddressModel addressModel = new()
                         {
-                            FirstName = employee.FirstName,
-                            LastName = employee.LastName,
-                            Email = employee.Email,
-                            PhoneNum = employee.PhoneNum,
-                            DOB = employee.DOB,
-                            Addresss = new CreateEmployeeDTO.Address()
-                            {
-                                StreetAddress = employeeAddress.StreetAddress,
-                                City = employeeAddress.City,
-                                PostalCode = employeeAddress.PostalCode,
-                                Country = employeeAddress.Country,
-                            }
+                            UserID = employeeAddress.UserID,
+                            StreetAddress = employeeAddress.StreetAddress,
+                            City = employeeAddress.City,
+                            PostalCode = employeeAddress.PostalCode,
+                            Country = employeeAddress.Country,
                         };
 
-                    }
-                    else if (employeeSkills.Count() == 0)
-                    {
                         CreateEmployeeDTO employeeDetails = new()
                         {
                             FirstName = employee.FirstName,
@@ -212,24 +204,48 @@ namespace EmployeeManager.Server.Controllers
                             Email = employee.Email,
                             PhoneNum = employee.PhoneNum,
                             DOB = employee.DOB,
-                            Addresss = new CreateEmployeeDTO.Address()
-                            {
-                                StreetAddress = employeeAddress.StreetAddress,
-                                City = employeeAddress.City,
-                                PostalCode = employeeAddress.PostalCode,
-                                Country = employeeAddress.Country,
-                            }
+                            Addresss = addressModel,
                         };
 
                         foreach (var item in employeeSkills)
                         {
-                            employeeDetails.Skills.Add(new CreateEmployeeDTO.Skill
+                            if(item.isDeleted == false)
                             {
-                                Name = item.Name,
-                                YearsExperience = item.YearsExperience,
-                                Seniority = item.Seniority,
-                            });
+                                employeeDetails.Skills.Add(new SkillsModel
+                                {
+                                    UserID = item.UserID,
+                                    SkillID = item.SkillID,
+                                    Name = item.Name,
+                                    YearsExperience = item.YearsExperience,
+                                    Seniority = item.Seniority,
+                                });
+                            }
                         }
+
+                        return Accepted(employeeDetails);
+
+                    }
+                    else if (employeeSkills.Count() == 0)
+                    {
+                        AddressModel addressModel = new()
+                        {
+                            StreetAddress = employeeAddress.StreetAddress,
+                            City = employeeAddress.City,
+                            PostalCode = employeeAddress.PostalCode,
+                            Country = employeeAddress.Country,
+                        };
+
+                        CreateEmployeeDTO employeeDetails = new()
+                        {
+                            FirstName = employee.FirstName,
+                            LastName = employee.LastName,
+                            Email = employee.Email,
+                            PhoneNum = employee.PhoneNum,
+                            DOB = employee.DOB,
+                            Addresss = addressModel,
+           
+                        };
+
                         return Accepted(employeeDetails);
                     }
                 }
