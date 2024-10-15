@@ -11,4 +11,3 @@ namespace EmployeeManager.Server.Repos.Interfaces
         Task<EmployeeEntity> UpdateEmployeeByID(EmployeeEntity employeeModel);
     }
 }
-}
