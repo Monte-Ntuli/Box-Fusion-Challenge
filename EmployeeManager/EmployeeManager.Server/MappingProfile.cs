@@ -1,4 +1,6 @@
-﻿namespace EmployeeManager.Server
+﻿using AutoMapper;
+
+namespace EmployeeManager.Server
 {
     public class MappingProfile : Profile
     {

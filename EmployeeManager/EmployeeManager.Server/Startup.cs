@@ -1,4 +1,8 @@
-﻿namespace EmployeeManager.Server
+﻿using EmployeeManager.Server.Services;
+using EmployeeManager.Server.Services.Interfaces;
+using Microsoft.EntityFrameworkCore;
+
+namespace EmployeeManager.Server
 {
     public class Startup
     {
