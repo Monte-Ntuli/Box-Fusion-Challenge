@@ -20,7 +20,7 @@ namespace EmployeeManager.Server
                 options.AddPolicy(name: AllowSpecificOrigins,
                                   builder =>
                                   {
-                                      builder.WithOrigins("")
+                                      builder.WithOrigins("https://localhost:5173","http://localhost:5173")
                                       .AllowAnyHeader()
                                       .AllowAnyMethod();
                                   });
