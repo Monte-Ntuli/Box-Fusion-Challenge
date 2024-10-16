@@ -1,14 +1,14 @@
-import React, { useEffect, useState } from "react"
+import React, { useEffect, useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import './EmployeeListPage.css';
 
 interface EmployeeModel {
     id: number;
+    userID: string;
     firstName: string;
     lastName: string;
     email: string;
     phoneNum: number;
-
 }
 
 const EmployeeList: React.FC = () => {
@@ -19,6 +19,33 @@ const EmployeeList: React.FC = () => {
 
     const navigateToAddEmployee = () => {
         navigate('/add-employee');
+    };
+
+    const navigateToEditEmployee = (userID: string) => {
+        navigate(`/edit-employee/${userID}`);
+    };
+
+    // Function to delete an employee by userID
+    const handleDeleteEmployee = async (userID: string) => {
+        const confirmDelete = window.confirm("Are you sure you want to delete this employee?");
+        if (!confirmDelete) return;
+
+        try {
+            const response = await fetch(`https://localhost:7222/api/Employee/DeleteEmployeeInformation/${userID}`, {
+                method: 'DELETE'
+            });
+
+            if (response.ok) {
+                // Filter out the deleted employee from the employees list
+                setEmployees(employees.filter(employee => employee.userID !== userID));
+                alert("Employee deleted successfully.");
+            } else {
+                alert("Failed to delete employee.");
+            }
+        } catch (error) {
+            console.error("Error deleting employee:", error);
+            alert("An error occurred while trying to delete the employee.");
+        }
     };
 
     useEffect(() => {
@@ -68,8 +95,8 @@ const EmployeeList: React.FC = () => {
                             <span className="employee-FirstName">{employee.firstName}</span>
                             <span className="employee-LastName">{employee.lastName}</span>
                             <span className="employee-PhoneNum">{employee.phoneNum}</span>
-                            <span className="edit-button">Edit</span>
-                            <span className="delete-button">Delete</span>
+                            <span className="edit-button" onClick={() => navigateToEditEmployee(employee.userID)}>Edit</span>
+                            <span className="delete-button" onClick={() => handleDeleteEmployee(employee.userID)}>Delete</span>
                         </div>
                     ))}
                 </div>
@@ -77,6 +104,5 @@ const EmployeeList: React.FC = () => {
         </div>
     );
 };
-
 
 export default EmployeeList;
