@@ -10,5 +10,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Folder Include="src\Pages\AddEmployeePage\" />
+    <Folder Include="src\Pages\EmployeeListPage\" />
   </ItemGroup>
 </Project>
