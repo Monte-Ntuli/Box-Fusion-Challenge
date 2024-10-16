@@ -28,7 +28,7 @@ namespace EmployeeManager.Server.Controllers
         public async Task<IActionResult> Delete(string skillId)
         {
             var employeeSkill = await _unitOfWork.Skills.DeleteSkillsBySkillID(skillId);
-            return Accepted(employeeSkill);
+            return Ok(employeeSkill);
         }
         #endregion
     }

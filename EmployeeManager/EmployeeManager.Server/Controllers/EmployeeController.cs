@@ -75,7 +75,7 @@ namespace EmployeeManager.Server.Controllers
                     var EmployeeSkills = await _unitOfWork.Skills.AddAsync(_mapper.Map<SkillsEntity>(skillsModel));
                 }
 
-                return Accepted(employee);
+                return Ok(employee);
             }
             else
             {
@@ -98,9 +98,9 @@ namespace EmployeeManager.Server.Controllers
                     var employeeSkills = await _unitOfWork.Skills.DeleteSkillsByUserID(userID);
                     if (employeeSkills != false)
                     {
-                        return Accepted();
+                        return Ok();
                     }
-                    else { return Accepted("No Skills to delete"); }
+                    else { return Ok("No Skills to delete"); }
                 }
             }
             return BadRequest();
@@ -153,10 +153,10 @@ namespace EmployeeManager.Server.Controllers
                             var EmployeeSkills = await _unitOfWork.Skills.UpdateSkillsByUserID(_mapper.Map<SkillsEntity>(updateSkillsModel));
                         }
 
-                        return Accepted(employee);
+                        return Ok(employee);
 
                     }
-                    return Accepted(employee + "No skills to update, please add skills");
+                    return Ok(employee + "No skills to update, please add skills");
 
                 }
                 return BadRequest(UpdatedEmployeeAddress);
@@ -170,7 +170,7 @@ namespace EmployeeManager.Server.Controllers
         public async Task<IActionResult> GetAllEmployees()
         {
             var result = await _unitOfWork.Employee.GetAllEmployees();
-            return Accepted(result);
+            return Ok(result);
         }
         #endregion
 
@@ -222,7 +222,7 @@ namespace EmployeeManager.Server.Controllers
                             }
                         }
 
-                        return Accepted(employeeDetails);
+                        return Ok(employeeDetails);
 
                     }
                     else if (employeeSkills.Count() == 0)
@@ -246,7 +246,7 @@ namespace EmployeeManager.Server.Controllers
            
                         };
 
-                        return Accepted(employeeDetails);
+                        return Ok(employeeDetails);
                     }
                 }
             }

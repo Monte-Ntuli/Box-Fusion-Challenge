@@ -13,7 +13,9 @@ interface EmployeeModel {
 
 const EmployeeList: React.FC = () => {
     const [employees, setEmployees] = useState<EmployeeModel[]>([]);
+    const [filteredEmployees, setFilteredEmployees] = useState<EmployeeModel[]>([]); 
     const [loading, setLoading] = useState(true);
+    const [searchQuery, setSearchQuery] = useState<string>(''); 
 
     const navigate = useNavigate();
 
@@ -31,13 +33,13 @@ const EmployeeList: React.FC = () => {
         if (!confirmDelete) return;
 
         try {
-            const response = await fetch(`https://localhost:7222/api/Employee/DeleteEmployeeInformation/${userID}`, {
+            const response = await fetch(`https://localhost:7222/api/Employee/DeleteEmployee/${userID}`, {
                 method: 'DELETE'
             });
 
             if (response.ok) {
-                // Filter out the deleted employee from the employees list
                 setEmployees(employees.filter(employee => employee.userID !== userID));
+                setFilteredEmployees(filteredEmployees.filter(employee => employee.userID !== userID));
                 alert("Employee deleted successfully.");
             } else {
                 alert("Failed to delete employee.");
@@ -54,6 +56,7 @@ const EmployeeList: React.FC = () => {
                 const response = await fetch("https://localhost:7222/api/Employee/GetAllEmployees");
                 const data: EmployeeModel[] = await response.json();
                 setEmployees(data);
+                setFilteredEmployees(data); // Initially set filtered list to full list
                 setLoading(false);
             } catch (error) {
                 console.error("Error fetching employees:", error);
@@ -64,6 +67,20 @@ const EmployeeList: React.FC = () => {
         fetchEmployees();
     }, []);
 
+    // Handle search input and filter employees
+    const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const query = event.target.value.toLowerCase();
+        setSearchQuery(query);
+
+        const filtered = employees.filter(employee =>
+            employee.firstName.toLowerCase().includes(query) ||
+            employee.lastName.toLowerCase().includes(query) ||
+            employee.email.toLowerCase().includes(query)
+        );
+
+        setFilteredEmployees(filtered);
+    };
+
     if (loading) {
         return <div>Loading employees...</div>;
     }
@@ -72,16 +89,20 @@ const EmployeeList: React.FC = () => {
         <div className="employee-list-container">
             <div className="header">
                 <h1>Employees</h1>
-                {employees.length === 0 ? <p>No employees</p> : <p>There are {employees.length} employees</p>}
+                {filteredEmployees.length === 0 ? <p>No employees</p> : <p>There are {filteredEmployees.length} employees</p>}
                 <div className="actions">
-                    <input type="text" placeholder="Search" className="search-input" />
-                    <button className="filter-button">Filter by</button>
+                    <input
+                        type="text"
+                        placeholder="Search by First Name, Last Name, or Email"
+                        className="search-input"
+                        value={searchQuery}
+                        onChange={handleSearch}
+                    />
                     <button className="new-employee-button" onClick={navigateToAddEmployee}>+ New Employee</button>
                 </div>
             </div>
 
-            {/* Conditionally render the empty state if no employees are present */}
-            {employees.length === 0 ? (
+            {filteredEmployees.length === 0 ? (
                 <div className="empty-state">
                     <img src="/assets/empty-state.JPG" alt="Empty state" className="empty-state-image" />
                     <p>There is nothing here</p>
@@ -89,11 +110,12 @@ const EmployeeList: React.FC = () => {
                 </div>
             ) : (
                 <div className="employee-list">
-                    {employees.map((employee, index) => (
+                    {filteredEmployees.map((employee, index) => (
                         <div key={employee.id} className="employee-card">
                             <span className="employee-id">{index + 1}</span>
                             <span className="employee-FirstName">{employee.firstName}</span>
                             <span className="employee-LastName">{employee.lastName}</span>
+                            <span className="employee-Email">{employee.email}</span>
                             <span className="employee-PhoneNum">{employee.phoneNum}</span>
                             <span className="edit-button" onClick={() => navigateToEditEmployee(employee.userID)}>Edit</span>
                             <span className="delete-button" onClick={() => handleDeleteEmployee(employee.userID)}>Delete</span>
