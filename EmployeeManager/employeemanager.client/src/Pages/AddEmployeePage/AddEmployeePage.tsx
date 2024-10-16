@@ -36,6 +36,11 @@ const EmployeeForm: React.FC = () => {
         setSkills([...skills, { skill: '', yearsExperience: 0, seniorityRating: '' }]);
     };
 
+    const deleteSkill = (index: number) => {
+        const newSkills = skills.filter((_, i) => i !== index);
+        setSkills(newSkills);
+    };
+
     const handleSkillChange = (index: number, field: string, value: string | number) => {
         const newSkills = [...skills];
         newSkills[index] = { ...newSkills[index], [field]: value };
@@ -63,13 +68,13 @@ const EmployeeForm: React.FC = () => {
                 streetAddress: formState.streetAddress,
                 city: formState.city,
                 postalCode: formState.postalCode,
-                country: formState.country
+                country: formState.country,
             },
             skills: skills.map(skill => ({
                 name: skill.skill,
                 yearsExperience: skill.yearsExperience,
-                seniority: skill.seniorityRating
-            }))
+                seniority: skill.seniorityRating,
+            })),
         };
 
         try {
@@ -78,7 +83,7 @@ const EmployeeForm: React.FC = () => {
             setFormState(initialFormState);
             setSkills([{ skill: '', yearsExperience: 0, seniorityRating: '' }]);
             setNotification('Form submitted successfully!');
-            setTimeout(() => setNotification(null), 3000); // Remove notification after 3 seconds
+            setTimeout(() => setNotification(null), 3000);
         } catch (error) {
             setError('Failed to submit form.');
         }
@@ -212,6 +217,9 @@ const EmployeeForm: React.FC = () => {
                                 onChange={(e) => handleSkillChange(index, 'seniorityRating', e.target.value)}
                                 required
                             />
+                            <button type="button" onClick={() => deleteSkill(index)} className="delete-skill-button">
+                                Delete
+                            </button>
                         </div>
                     ))}
                     <button type="button" onClick={addSkill}>+ Add New Skill</button>

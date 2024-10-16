@@ -46,7 +46,7 @@ const EmployeeForm: React.FC = () => {
         const fetchEmployeeData = async () => {
             try {
                 if (userID) {
-                    const employeeData: Employee = await getEmployeeById(userID); 
+                    const employeeData: Employee = await getEmployeeById(userID);
                     setFormState({
                         firstName: employeeData.firstName,
                         lastName: employeeData.lastName,
@@ -77,10 +77,15 @@ const EmployeeForm: React.FC = () => {
         setSkills([...skills, { skill: '', yearsExperience: 0, seniorityRating: '' }]);
     };
 
+    const deleteSkill = (index: number) => {
+        const updatedSkills = skills.filter((_, i) => i !== index);
+        setSkills(updatedSkills);
+    };
+
     const handleSkillChange = (index: number, field: string, value: string | number) => {
-        const newSkills = [...skills];
-        newSkills[index] = { ...newSkills[index], [field]: value };
-        setSkills(newSkills);
+        const updatedSkills = [...skills];
+        updatedSkills[index] = { ...updatedSkills[index], [field]: value };
+        setSkills(updatedSkills);
     };
 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -104,13 +109,13 @@ const EmployeeForm: React.FC = () => {
                 streetAddress: formState.streetAddress,
                 city: formState.city,
                 postalCode: formState.postalCode,
-                country: formState.country
+                country: formState.country,
             },
             skills: skills.map(skill => ({
                 name: skill.skill,
                 yearsExperience: skill.yearsExperience,
-                seniority: skill.seniorityRating
-            }))
+                seniority: skill.seniorityRating,
+            })),
         };
 
         try {
@@ -253,6 +258,9 @@ const EmployeeForm: React.FC = () => {
                                 onChange={(e) => handleSkillChange(index, 'seniorityRating', e.target.value)}
                                 required
                             />
+                            <button type="button" onClick={() => deleteSkill(index)} className="delete-skill-button">
+                                Delete
+                            </button>
                         </div>
                     ))}
                     <button type="button" onClick={addSkill}>+ Add New Skill</button>
