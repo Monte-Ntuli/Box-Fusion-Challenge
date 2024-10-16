@@ -1,1 +1,7 @@
-﻿
+﻿body {
+    background-color: #1b121f !important;
+}
+
+.container-style{
+    margin-top: 7em;
+}

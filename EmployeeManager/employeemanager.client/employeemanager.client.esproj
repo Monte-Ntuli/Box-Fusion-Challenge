@@ -9,8 +9,6 @@
     <BuildOutputFolder>$(MSBuildProjectDirectory)\dist</BuildOutputFolder>
   </PropertyGroup>
   <ItemGroup>
-    <Folder Include="src\Pages\AddEmployeePage\" />
-    <Folder Include="src\Pages\EmployeeListPage\" />
-    <Folder Include="src\Pages\EditEmployeePage\" />
+    <Folder Include="src\Pages\" />
   </ItemGroup>
 </Project>

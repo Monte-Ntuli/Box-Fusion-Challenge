@@ -1,16 +1,18 @@
 export interface CreateEmployeeDTO {
-        
+
+    id: string,
     firstName: string,
-    fastName: string,
+    lastName: string,
     email: string,
     phoneNum: string,
-    DOB: string | undefined,
+    DOB: string,
     isDeleted: boolean,
     address: AddressDTO,
     skills: SkillsDTO[],
 }
 
 interface SkillsDTO {
+    skillID: string;
     skill: string;
     yearsExperience: number;
     seniorityRating: string;

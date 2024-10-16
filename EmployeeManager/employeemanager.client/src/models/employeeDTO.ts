@@ -1,10 +1,11 @@
 export interface EmployeeDTO {
 
+    id: string,
     userID: string,
     firstName: string,
-    fastName: string,
+    lastName: string,
     email: string,
     phoneNum: string,
-    DOB: string | undefined,
+    DOB: string,
     isDeleted: boolean,
 }

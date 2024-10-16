@@ -1,19 +1,20 @@
-import React from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import EmployeeListPage from './Pages/EmployeeListPage/EmployeeListPage';
-import AddEmployeePage from './Pages/AddEmployeePage/AddEmployeePage';
-import EditEmployeePage from './Pages/EditEmployeePage/EditEmployeePage';
+import { Outlet, useLocation } from 'react-router-dom';
+import './App.css'
+import EmployeeTable from './components/employees/EmployeeTable'
+import { Container } from 'semantic-ui-react';
 
-const App: React.FC = () => {
+function App() {
+
+    const location = useLocation();
     return (
-        <Router>
-            <Routes>
-                <Route path="/" element={<EmployeeListPage />} />
-                <Route path="/add-employee" element={<AddEmployeePage />} />
-                <Route path="/edit-employee/:userID" element={<EditEmployeePage />} />
-            </Routes>
-        </Router>
-    );
-};
+        <>
+            {location.pathname === '/' ? <EmployeeTable /> : (
+                <Container className="container-style">
+                    <Outlet/>
+                </Container>
+            )}
+        </>
+    )
+}
 
-export default App;
+export default App
