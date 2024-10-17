@@ -1,5 +1,6 @@
 import axios from "axios";
 import { EmployeeDTO } from "../models/employeeDTO";
+import { CreateEmployeeDTO } from "../models/createEmployeeDTO";
 
 const baseURL = 'https://localhost:7222/api/';
 
@@ -13,7 +14,29 @@ const apiConnector = {
 
     createEmployee: async (employee: EmployeeDTO): Promise<void> => {
         try {
-            await axios.post<number>(baseURL + 'Employee/AddEmployee', employee);
+            const createEmployeeDTO: CreateEmployeeDTO = {
+                firstName: employee.firstName,
+                lastName: employee.lastName,
+                email: employee.email,
+                phoneNum: employee.phoneNum,
+                DOB: new Date(employee.DOB),
+                isDeleted: employee.isDeleted,
+                address: {
+                    streetAddress: employee.address.streetAddress,
+                    city: employee.address.city,
+                    postalCode: employee.address.postalCode,
+                    country: employee.address.country,
+                },
+                skills: employee.skills.map(skill => ({
+                    userID: skill.userID,
+                    skillID: skill.skillID,
+                    name: skill.name,
+                    yearsExperience: skill.yearsExperience,
+                    seniority: skill.seniority
+                }))
+            };
+
+            await axios.post<number>(baseURL + 'Employee/AddEmployee', createEmployeeDTO);
         } catch (error) {
             console.log(error);
             throw error;

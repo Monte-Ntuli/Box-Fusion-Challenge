@@ -1,5 +1,5 @@
 import { ChangeEvent, useEffect, useState } from "react";
-import { NavLink, useParams } from "react-router-dom"
+import { NavLink, useNavigate, useParams } from "react-router-dom"
 import apiConnector from "../../api/apiConnector";
 import { Button  } from "semantic-ui-react";
 import { EmployeeDTO } from "../../models/employeeDTO";
@@ -7,6 +7,7 @@ import './EmployeeForm.css';
 
 export default function EmployeeForm() {
 
+    const navigate = useNavigate();
     const {userID} = useParams();
 
     const[employee, setEmployee] = useState<EmployeeDTO>({
@@ -41,6 +42,14 @@ export default function EmployeeForm() {
             apiConnector.getEmployeeById(userID).then();
         }
     }, [userID]);
+
+    function handleSubmit() {
+        if (!employee.userID) {
+            apiConnector.createEmployee(employee).then(() => navigate('/'));
+        } else {
+            apiConnector.updateEmployee(employee).then(() => navigate('/'));
+        }
+    }
 
     function handleInputChange(event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
         const { name, value } = event.target;
@@ -92,8 +101,6 @@ export default function EmployeeForm() {
         }))
     };
 
-
-
     const deleteSkill = (index: number) => {
         setEmployee(prevEmployee => ({
             ...prevEmployee,
@@ -125,7 +132,7 @@ export default function EmployeeForm() {
     return (
         <div className="employee-form">
             <h2>Edit Employee</h2>
-            <form >
+            <form onSubmit={handleSubmit} >
                 <div className="form-section">
                     <label>First Name</label>
                     <input
