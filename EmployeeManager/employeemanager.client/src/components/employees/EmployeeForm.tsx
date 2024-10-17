@@ -43,23 +43,23 @@ export default function EmployeeForm() {
         }
     }, [userID]);
 
-    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-        event.preventDefault();
+    //const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    //    event.preventDefault();
 
+    //    if (!userID) {
+    //        apiConnector.createEmployee(employee);
+    //    } else {
+    //        apiConnector.updateEmployee(employee, userID).then(() => navigate('/'));
+    //    }
+    //} for testing purposes
+
+    function handleSubmit() {
         if (!userID) {
-            apiConnector.createEmployee(employee);
+            apiConnector.createEmployee(employee).then(() => navigate('/'));
         } else {
             apiConnector.updateEmployee(employee, userID).then(() => navigate('/'));
         }
     }
-
-    //function handleSubmit() {
-    //    if (!userID) {
-    //        apiConnector.createEmployee(employee).then(() => navigate('/'));
-    //    } else {
-    //        apiConnector.updateEmployee(employee, userID).then(() => navigate('/'));
-    //    }
-    //}
 
     function handleInputChange(event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
         const { name, value } = event.target;
