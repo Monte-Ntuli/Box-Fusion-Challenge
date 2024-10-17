@@ -2,39 +2,22 @@ import { useEffect, useState } from "react";
 import { EmployeeDTO } from "../../models/employeeDTO";
 import apiConnector from "../../api/apiConnector";
 import { Button } from "semantic-ui-react";
-import { NavLink, useNavigate } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import './EmployeeTable.css';
 
 export default function ListEmployee() {
 
     const [employees, setEmployees] = useState<EmployeeDTO[]>([]);
-    const [loading, setLoading] = useState(true);
-    const navigate = useNavigate();
-
-    const navigateToAddEmployee = () => {
-        navigate('/add-employee');
-    };
 
     useEffect(() => {
 
         const fetchData = async () => {
             const fetchedEmployees = await apiConnector.getALLEmployees();
             setEmployees(fetchedEmployees);
-            setLoading(false);
         }
 
         fetchData();
     }, []);
-
-    if (loading) {
-        return <div className="container-style">
-            <div className="empty-state">
-                <img src="/assets/empty-state.JPG" alt="Empty state" className="empty-state-image" />
-                <p>There is nothing here</p>
-                <p>Create a new employee by clicking the</p> <strong>New Employee</strong> <p> button to get started</p>
-            </div>
-        </div>;
-    }
 
     return (
         <>
