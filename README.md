@@ -77,3 +77,44 @@ Make sure you have the following installed:
 
 7. **Access the API in Swagger**: https://localhost:7222/swagger/index.html
    - Open your web browser and navigate to the specified URL (e.g., [https://localhost:7222/swagger/index.html](https://localhost:7222/swagger/inddex.html)) to view and interact with the backend.
+  
+
+## Restoring the EmployeesDB.bak File
+
+To restore the `EmployeesDB.bak` file in SQL Server Management Studio (SSMS), follow these steps:
+
+1. **Open SQL Server Management Studio (SSMS)**:
+   - Launch SSMS on your machine.
+
+2. **Connect to Your SQL Server Instance**:
+   - In the **Connect to Server** dialog, select your server type (usually **Database Engine**) and enter the server name.
+   - Click **Connect**.
+
+3. **Open the Restore Database Dialog**:
+   - In the Object Explorer, right-click on the **Databases** node and select **Restore Database**.
+
+4. **Select the Source for Restore**:
+   - In the **Restore Database** window, select **Device** under the **Source** section.
+   - Click on the **...** (ellipsis) button to open the **Select backup devices** dialog.
+
+5. **Add the Backup File**:
+   - In the **Select backup devices** dialog, click **Add**.
+   - Navigate to the location of your `EmployeesDB.bak` file and select it. Click **OK**.
+
+6. **Choose the Database to Restore**:
+   - Back in the **Restore Database** dialog, the **Database** field should automatically populate with the name from the backup. You can change this if you want to restore it under a different name.
+   - Ensure that the **Backup sets to restore** section has the appropriate backup checked.
+
+7. **Restore Options**:
+   - Go to the **Options** page on the left panel.
+   - Here, you can choose to overwrite the existing database if you want to restore to an existing database by checking the **Overwrite the existing database (WITH REPLACE)** option.
+   - Adjust other options according to your requirements, such as moving the database files to a different location if necessary.
+
+8. **Execute the Restore**:
+   - Click **OK** to start the restore process.
+   - SSMS will show a message once the restore is complete. If there are any errors, they will also be displayed here.
+
+9. **Verify the Database**:
+   - After restoring, you should see the newly restored database listed under the **Databases** node in Object Explorer.
+   - You can expand the database node to view its tables and other objects.
+
