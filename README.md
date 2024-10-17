@@ -48,3 +48,29 @@ Make sure you have the following installed:
    ```bash
    npm install
 
+
+## Running the Project Using Visual Studio
+
+1. **Open the Solution File**:
+   - Launch **Visual Studio**.
+   - Go to **File** > **Open** > **Project/Solution...**.
+   - Navigate to your project directory and select the `.sln` file (e.g., `EmployeeManager.sln`).
+
+2. **Restore NuGet Packages**:
+   - In the **Solution Explorer**, right-click on the solution (the top-level node) and select **Restore NuGet Packages**. This will download any dependencies required for your C# API.
+
+3. **Set the Startup Projects**:
+   - Right-click on the solution in **Solution Explorer** and select **Properties**.
+   - In the **Common Properties** section, go to **Startup Projects**.
+   - Select **Multiple startup projects**.
+   - Set the action for both the frontend (if it's in the same solution) and the backend (C# API) to **Start**.
+
+4. **Build the Solution**:
+   - Go to **Build** > **Build Solution** or press `Ctrl + Shift + B`. This compiles your project and checks for any errors.
+
+5. **Run the Project**:
+   - Click on the green **Start** button (or press `F5`) to run the project. This will launch both the frontend and backend (if configured).
+   - If the backend is set up correctly, the frontend should be accessible via the configured URL, usually [https://localhost:5173](http://localhost:5173) for the React app.
+
+6. **Access the Application**:
+   - Open your web browser and navigate to the specified URL (e.g., [https://localhost:5173](https://localhost:5173)) to view and interact with the application.
