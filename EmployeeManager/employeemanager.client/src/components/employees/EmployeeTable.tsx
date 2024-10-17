@@ -8,6 +8,7 @@ import './EmployeeTable.css';
 export default function ListEmployee() {
 
     const [employees, setEmployees] = useState<EmployeeDTO[]>([]);
+    const [searchTerm, setSearchTerm] = useState<string>("");
 
     useEffect(() => {
 
@@ -19,19 +20,29 @@ export default function ListEmployee() {
         fetchData();
     }, []);
 
+    const filteredEmployees = employees.filter((employee) => {
+        const fullName = `${employee.firstName} ${employee.lastName}`.toLowerCase();
+        return (
+            fullName.includes(searchTerm.toLowerCase()) ||
+            employee.email.toLowerCase().includes(searchTerm.toLowerCase())
+        );
+    });
+
     return (
         <>
             <div className="employee-list-container">
                 <div className="header">
                     <h1>Employees</h1>
-                    {employees.length === 0 ? <p>No employees</p> : <p>There are {employees.length} employees</p>}
+                    {filteredEmployees.length === 0 ? <p>No employees</p> : <p>There are {filteredEmployees.length} employees</p>}
                     <div className="actions">
-                        <input type="text" placeholder="Search" className="search-input" />
+                        <input type="text" placeholder="Search by name or email" className="search-input" value={searchTerm}
+                            onChange={(e) => setSearchTerm(e.target.value)} />
+
                         <Button className="filter-button">Filter by</Button>
                         <Button as={NavLink} to="createEmployee" className="new-employee-button" content="+ New Employee" positive />
                     </div>
                 </div>
-                {employees.length === 0 ? (
+                {filteredEmployees.length === 0 ? (
                     <div className="empty-state">
                         <img src="/assets/empty-state.JPG" alt="Empty state" className="empty-state-image" />
                         <p>There is nothing here</p>
@@ -39,7 +50,7 @@ export default function ListEmployee() {
                     </div>
                 ) : (
                     <div className="employee-list">
-                            {employees.map((employee, index) => (
+                            {filteredEmployees.map((employee, index) => (
                                 <div key={employee.userID} className="employee-card">
                                 <span className="employee-id">{index + 1}</span>
                                 <span className="employee-FirstName">{employee.firstName}</span>
