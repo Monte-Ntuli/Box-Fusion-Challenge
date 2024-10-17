@@ -16,7 +16,7 @@ namespace EmployeeManager.Server.Repos
 
         public async override Task<EmployeeEntity> AddAsync(EmployeeEntity entity)
         {
-            var check = await _dbContext.Employees.FirstOrDefaultAsync(x => x.Email == entity.Email);
+            var check = await _dbContext.Employees.FirstOrDefaultAsync(x => x.Email == entity.Email && x.isDeleted == false);
 
             if (check == null)
             {

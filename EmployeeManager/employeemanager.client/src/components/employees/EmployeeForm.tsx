@@ -54,10 +54,10 @@ export default function EmployeeForm() {
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault(); 
 
-        if (!employee.userID) {
+        if (!userID) {
             apiConnector.createEmployee(employee);
         } else {
-            apiConnector.updateEmployee(employee).then(() => navigate('/'));
+            apiConnector.updateEmployee(employee, userID).then(() => navigate('/'));
         }
     }
 

@@ -41,14 +41,13 @@ const apiConnector = {
             await axios.post<number>(baseURL + 'Employee/AddEmployee', createEmployeeDTO);
         } catch (error) {
             console.log(error);
-            throw error;
         }
     },
 
-    updateEmployee: async (employee: EmployeeDTO): Promise<void> => {
+    updateEmployee: async (employee: EmployeeDTO, userID: string): Promise<void> => {
         try {
             const updateEmployeeDTO: UpdateEmployeeDTO = {
-                userID: employee.userID,
+                userID: userID,
                 firstName: employee.firstName,
                 lastName: employee.lastName,
                 email: employee.email,
@@ -68,12 +67,11 @@ const apiConnector = {
                     name: skill.name,
                     yearsExperience: skill.yearsExperience,
                     seniority: skill.seniority
-                }))
+                })) 
             };
-            await axios.post<number>(baseURL + 'Employee/AddEmployee', updateEmployeeDTO);
+            await axios.post<number>(baseURL + 'Employee/UpdateEmployeeInformation', updateEmployeeDTO);
         } catch (error) {
             console.log(error);
-            throw error;
         }
     }, 
 
@@ -88,7 +86,6 @@ const apiConnector = {
     getEmployeeById: async (userID: string) => {
         const response = await fetch(baseURL + 'Employee/GetEmployeeInformationByuserID/' + userID);
         const data: EmployeeDTO = await response.json();
-        console.log(data);
         return data;
     },
 }
