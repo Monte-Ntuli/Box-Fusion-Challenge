@@ -39,8 +39,8 @@ export default function ListEmployee() {
                     </div>
                 ) : (
                     <div className="employee-list">
-                        {employees.map((employee, index) => (
-                            <div key={employee.id} className="employee-card">
+                            {employees.map((employee, index) => (
+                                <div key={employee.userID} className="employee-card">
                                 <span className="employee-id">{index + 1}</span>
                                 <span className="employee-FirstName">{employee.firstName}</span>
                                 <span className="employee-LastName">{employee.lastName}</span>

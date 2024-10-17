@@ -1,13 +1,13 @@
 import { ChangeEvent, useEffect, useState } from "react";
-import { NavLink, useNavigate, useParams } from "react-router-dom"
+import { NavLink, useParams } from "react-router-dom"
 import apiConnector from "../../api/apiConnector";
 import { Button  } from "semantic-ui-react";
 import { EmployeeDTO } from "../../models/employeeDTO";
+import './EmployeeForm.css';
 
 export default function EmployeeForm() {
 
     const {userID} = useParams();
-    const navigate = useNavigate();
 
     const[employee, setEmployee] = useState<EmployeeDTO>({
 
@@ -86,7 +86,7 @@ export default function EmployeeForm() {
                     skillID: '', 
                     name: '',
                     yearsExperience: 0,
-                    seniorityRating: ''
+                    seniority: ''
                 }
             ]
         }))
@@ -170,7 +170,7 @@ export default function EmployeeForm() {
                     <label>Date of Birth</label>
                     <input
                         type="date"
-                        name="dob"
+                        name="DOB"
                         value={employee.DOB}
                         onChange={handleInputChange}
                         required
@@ -241,7 +241,7 @@ export default function EmployeeForm() {
                                 placeholder="Seniority Rating"
                                 name={`Seniority Rating ${index + 1}`}
                                 value={skill.seniority}
-                                onChange={(e) => handleSkillChange(index, 'seniorityRating', e.target.value)}
+                                onChange={(e) => handleSkillChange(index, 'seniority', e.target.value)}
                                 required
                             />
                             {skill.skillID !== '' ? (
