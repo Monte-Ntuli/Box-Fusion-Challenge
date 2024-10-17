@@ -77,8 +77,22 @@ export default function EmployeeForm() {
 
 
     const addSkill = () => {
-        setSkills([...skills, { skill: '', yearsExperience: 0, seniorityRating: '' }]);
+        setEmployee((prevEmployee) => ({
+            ...prevEmployee,
+            skills: [
+                ...prevEmployee.skills,
+                {
+                    userID: '',  
+                    skillID: '', 
+                    name: '',
+                    yearsExperience: 0,
+                    seniorityRating: ''
+                }
+            ]
+        }))
     };
+
+
 
     const deleteSkill = (index: number) => {
         setEmployee(prevEmployee => ({
@@ -105,9 +119,7 @@ export default function EmployeeForm() {
 
 
     const handleCancel = () => {
-        setFormState(initialFormState);
-        setSkills([{ skill: '', yearsExperience: 0, seniorityRating: '' }]);
-        setError(null);
+        setEmployee(employee);
     };
 
     return (
