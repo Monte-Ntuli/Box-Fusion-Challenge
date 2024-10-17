@@ -1,0 +1,64 @@
+.employee-form {
+    background-color: #2c2c54;
+    color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    width: 500px;
+}
+
+.form-section {
+    margin-bottom: 15px;
+}
+
+    .form-section label {
+        display: block;
+        margin-bottom: 5px;
+    }
+
+    .form-section input {
+        width: 100%;
+        padding: 8px;
+        border-radius: 5px;
+        border: none;
+    }
+
+.skill-section {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+    .skill-section input {
+        flex: 1;
+    }
+
+.save-button,
+.cancel-button {
+    background-color: #6c5ce7;
+    color: #fff;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 10px;
+}
+
+.back-button {
+    background-color: red;
+    color: #fff;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 10px;
+}
+
+.error {
+    color: red;
+    margin-top: 10px;
+}
+
+.notification {
+    color: #4caf50;
+    margin-top: 10px;
+}

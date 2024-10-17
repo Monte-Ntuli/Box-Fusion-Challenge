@@ -1,8 +1,5 @@
 import axios from "axios";
 import { EmployeeDTO } from "../models/employeeDTO";
-import { CreateEmployeeDTO } from "../models/createEmployee";
-import { UpdateEmployeeDTO } from "../models/updateEmployeeDTO";
-import { GetEmployeeByIDResponse } from "../models/getEmployeeByIdResponse";
 
 const baseURL = 'https://localhost:7222/api/';
 
@@ -14,17 +11,16 @@ const apiConnector = {
             return data;
     },
 
-    createEmployee: async (employee: CreateEmployeeDTO): Promise<void> => {
-        await fetch(baseURL + 'Employee/AddEmployee', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(employee),
-        });
+    createEmployee: async (employee: EmployeeDTO): Promise<void> => {
+        try {
+            await axios.post<number>(baseURL + 'Employee/AddEmployee', employee);
+        } catch (error) {
+            console.log(error);
+            throw error;
+        }
     },
 
-    updateEmployee: async (employee: UpdateEmployeeDTO): Promise<void> => {
+    updateEmployee: async (employee: EmployeeDTO): Promise<void> => {
         await fetch(baseURL + 'Employee/AddEmployee', {
             method: 'POST',
             headers: {
@@ -44,7 +40,7 @@ const apiConnector = {
 
     getEmployeeById: async (userID: string) => {
         const response = await fetch(baseURL + 'Employee/GetEmployeeInformationByuserID/' + userID);
-        const data: GetEmployeeByIDResponse[] = await response.json();
+        const data: EmployeeDTO = await response.json();
         return data;
     },
 }
