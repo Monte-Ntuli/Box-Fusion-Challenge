@@ -79,7 +79,7 @@ namespace EmployeeManager.Server.Controllers
             }
             else
             {
-                return BadRequest(employee);
+                return BadRequest("Please use a different email");
             }
         }
         #endregion

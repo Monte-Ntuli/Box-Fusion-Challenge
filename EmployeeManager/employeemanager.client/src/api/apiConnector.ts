@@ -21,7 +21,8 @@ const apiConnector = {
                 phoneNum: employee.phoneNum,
                 DOB: new Date(employee.DOB),
                 isDeleted: employee.isDeleted,
-                address: {
+                addresss: {
+                    userID: employee.address.userID,
                     streetAddress: employee.address.streetAddress,
                     city: employee.address.city,
                     postalCode: employee.address.postalCode,

@@ -6,7 +6,7 @@ export interface CreateEmployeeDTO {
     phoneNum: string,
     DOB: Date,
     isDeleted: boolean,
-    address: AddressDTO,
+    addresss: AddressDTO,
     skills: SkillsDTO[],
 }
 
@@ -19,6 +19,7 @@ interface SkillsDTO {
 }
 
 interface AddressDTO {
+    userID: string;
     streetAddress: string;
     city: string;
     postalCode: string;

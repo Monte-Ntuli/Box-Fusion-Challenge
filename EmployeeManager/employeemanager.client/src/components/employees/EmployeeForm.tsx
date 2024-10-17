@@ -43,9 +43,19 @@ export default function EmployeeForm() {
         }
     }, [userID]);
 
-    function handleSubmit() {
+    //function handleSubmit() {
+    //    if (!employee.userID) {
+    //        apiConnector.createEmployee(employee).then(() => navigate('/'));
+    //    } else {
+    //        apiConnector.updateEmployee(employee).then(() => navigate('/'));
+    //    }
+    //}
+
+    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+        event.preventDefault(); 
+
         if (!employee.userID) {
-            apiConnector.createEmployee(employee).then(() => navigate('/'));
+            apiConnector.createEmployee(employee);
         } else {
             apiConnector.updateEmployee(employee).then(() => navigate('/'));
         }
