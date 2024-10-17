@@ -39,10 +39,12 @@ Make sure you have the following installed:
    git clone https://github.com/Monte-Ntuli/Box-Fusion-Challenge.git
 
 2. Navigate to the project directory:
-
+   
+   ```bash
    cd Box-Fusion-Challenge/employeemanager.client
 
-3. Install the dependencies:
+4. Install the dependencies:
 
+   ```bash
    npm install
 
