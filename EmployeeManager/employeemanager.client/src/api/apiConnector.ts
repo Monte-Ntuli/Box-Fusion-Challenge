@@ -1,6 +1,7 @@
 import axios from "axios";
 import { EmployeeDTO } from "../models/employeeDTO";
 import { CreateEmployeeDTO } from "../models/createEmployeeDTO";
+import { UpdateEmployeeDTO } from "../models/updateEmployeeDTO";
 
 const baseURL = 'https://localhost:7222/api/';
 
@@ -22,11 +23,11 @@ const apiConnector = {
                 DOB: new Date(employee.DOB),
                 isDeleted: employee.isDeleted,
                 addresss: {
-                    userID: employee.address.userID,
-                    streetAddress: employee.address.streetAddress,
-                    city: employee.address.city,
-                    postalCode: employee.address.postalCode,
-                    country: employee.address.country,
+                    userID: employee.addresss.userID,
+                    streetAddress: employee.addresss.streetAddress,
+                    city: employee.addresss.city,
+                    postalCode: employee.addresss.postalCode,
+                    country: employee.addresss.country,
                 },
                 skills: employee.skills.map(skill => ({
                     userID: skill.userID,
@@ -45,13 +46,35 @@ const apiConnector = {
     },
 
     updateEmployee: async (employee: EmployeeDTO): Promise<void> => {
-        await fetch(baseURL + 'Employee/AddEmployee', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(employee),
-        });
+        try {
+            const updateEmployeeDTO: UpdateEmployeeDTO = {
+                userID: employee.userID,
+                firstName: employee.firstName,
+                lastName: employee.lastName,
+                email: employee.email,
+                phoneNum: employee.phoneNum,
+                DOB: new Date(employee.DOB),
+                isDeleted: employee.isDeleted,
+                addresss: {
+                    userID: employee.addresss.userID,
+                    streetAddress: employee.addresss.streetAddress,
+                    city: employee.addresss.city,
+                    postalCode: employee.addresss.postalCode,
+                    country: employee.addresss.country,
+                },
+                skills: employee.skills.map(skill => ({
+                    userID: skill.userID,
+                    skillID: skill.skillID,
+                    name: skill.name,
+                    yearsExperience: skill.yearsExperience,
+                    seniority: skill.seniority
+                }))
+            };
+            await axios.post<number>(baseURL + 'Employee/AddEmployee', updateEmployeeDTO);
+        } catch (error) {
+            console.log(error);
+            throw error;
+        }
     }, 
 
     deleteEmployee: async (userID: string): Promise<void> => {
@@ -65,6 +88,7 @@ const apiConnector = {
     getEmployeeById: async (userID: string) => {
         const response = await fetch(baseURL + 'Employee/GetEmployeeInformationByuserID/' + userID);
         const data: EmployeeDTO = await response.json();
+        console.log(data);
         return data;
     },
 }

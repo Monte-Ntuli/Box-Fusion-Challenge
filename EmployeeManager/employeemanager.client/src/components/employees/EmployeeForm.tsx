@@ -19,7 +19,7 @@ export default function EmployeeForm() {
         phoneNum: '',
         DOB: '',
         isDeleted: false,
-        address: {
+        addresss: {
             userID: '',
             streetAddress: '',
             city: '',
@@ -39,7 +39,7 @@ export default function EmployeeForm() {
 
     useEffect(() => {
         if (userID) {
-            apiConnector.getEmployeeById(userID).then();
+            apiConnector.getEmployeeById(userID).then(employee => setEmployee(employee!));
         }
     }, [userID]);
 
@@ -65,11 +65,11 @@ export default function EmployeeForm() {
         const { name, value } = event.target;
 
         
-        if (name in employee.address) {
+        if (name in employee.addresss) {
             setEmployee(prevEmployee => ({
                 ...prevEmployee,
-                address: {
-                    ...prevEmployee.address,
+                addresss: {
+                    ...prevEmployee.addresss,
                     [name]: value
                 }
             }));
@@ -198,7 +198,7 @@ export default function EmployeeForm() {
                     <input
                         type="text"
                         name="streetAddress"
-                        value={employee.address.streetAddress}
+                        value={employee.addresss.streetAddress}
                         onChange={handleInputChange}
                         required
                     />
@@ -208,7 +208,7 @@ export default function EmployeeForm() {
                     <input
                         type="text"
                         name="city"
-                        value={employee.address.city}
+                        value={employee.addresss.city}
                         onChange={handleInputChange}
                         required
                     />
@@ -218,7 +218,7 @@ export default function EmployeeForm() {
                     <input
                         type="text"
                         name="postalCode"
-                        value={employee.address.postalCode}
+                        value={employee.addresss.postalCode}
                         onChange={handleInputChange}
                         required
                     />
@@ -228,7 +228,7 @@ export default function EmployeeForm() {
                     <input
                         type="text"
                         name="country"
-                        value={employee.address.country}
+                        value={employee.addresss.country}
                         onChange={handleInputChange}
                         required
                     />

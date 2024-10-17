@@ -7,7 +7,7 @@ export interface EmployeeDTO {
     phoneNum: string,
     DOB: string,
     isDeleted: boolean,
-    address: AddressDTO,
+    addresss: AddressDTO,
     skills: SkillsDTO[],
 }
 

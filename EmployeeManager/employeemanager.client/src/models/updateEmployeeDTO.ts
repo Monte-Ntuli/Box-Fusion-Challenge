@@ -5,20 +5,22 @@ export interface UpdateEmployeeDTO {
     lastName: string,
     email: string,
     phoneNum: string,
-    DOB: string,
+    DOB: Date,
     isDeleted: boolean,
-    address: AddressDTO,
+    addresss: AddressDTO,
     skills: SkillsDTO[],
 }
 
 interface SkillsDTO {
+    userID: string;
     skillID: string;
-    skill: string;
+    name: string;
     yearsExperience: number;
-    seniorityRating: string;
+    seniority: string;
 }
 
 interface AddressDTO {
+    userID: string;
     streetAddress: string;
     city: string;
     postalCode: string;
