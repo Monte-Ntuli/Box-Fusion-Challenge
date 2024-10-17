@@ -1,6 +1,5 @@
 export interface EmployeeDTO {
 
-    id: string,
     userID: string,
     firstName: string,
     lastName: string,
@@ -8,4 +7,24 @@ export interface EmployeeDTO {
     phoneNum: string,
     DOB: string,
     isDeleted: boolean,
+    address: AddressDTO,
+    skills: SkillsDTO[],
+}
+
+interface AddressDTO {
+
+    userID: string;
+    streetAddress: string;
+    city: string;
+    postalCode: string;
+    country: string;
+}
+
+interface SkillsDTO {
+
+    userID: string;
+    skillID: string;
+    name: string;
+    yearsExperience: number;
+    seniority: string;
 }

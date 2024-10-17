@@ -1,72 +1,49 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate, NavLink } from 'react-router-dom';
 import { updateEmployeeInformation, getEmployeeById } from '../api';
 import './EditEmployeePage.css';
+import { EmployeeDTO } from '../../../models/employeeDTO';
+import apiConnector from '../../../api/apiConnector';
 
-interface Skill {
-    skill: string;
-    yearsExperience: number;
-    seniorityRating: string;
-}
+export default function EmployeeForm() {
 
-interface Employee {
-    firstName: string;
-    lastName: string;
-    contactNumber: string;
-    email: string;
-    dateOfBirth: string;
-    streetAddress: string;
-    city: string;
-    postalCode: string;
-    country: string;
-    skills: Skill[];
-}
+    const { userID } = useParams();
+    const navigate = useNavigate();
 
-const EmployeeForm: React.FC = () => {
-    const { userID } = useParams<{ userID: string }>();
-    const [skills, setSkills] = useState<Skill[]>([{ skill: '', yearsExperience: 0, seniorityRating: '' }]);
-    const [error, setError] = useState<string | null>(null);
-    const [notification, setNotification] = useState<string | null>(null);
-
-    const initialFormState = {
+    const [employee, setEmployee] = useState<EmployeeDTO>({
+       
+        userID: '',
         firstName: '',
         lastName: '',
-        contactNumber: '',
         email: '',
-        dateOfBirth: '',
-        streetAddress: '',
-        city: '',
-        postalCode: '',
-        country: '',
-    };
-
-    const [formState, setFormState] = useState(initialFormState);
+        phoneNum: '',
+        DOB: '',
+        isDeleted: false,
+        address: {
+            userID: '',
+            streetAddress: '',
+            city: '',
+            postalCode: '',
+            country: '',
+        },
+        skills: [
+            {
+                userID: '',
+                skillID: '',
+                name: '',
+                yearsExperience: 0,
+                seniority: '',
+            }
+        ]
+    });
 
     useEffect(() => {
-        const fetchEmployeeData = async () => {
-            try {
-                if (userID) {
-                    const employeeData: Employee = await getEmployeeById(userID);
-                    setFormState({
-                        firstName: employeeData.firstName,
-                        lastName: employeeData.lastName,
-                        contactNumber: employeeData.contactNumber,
-                        email: employeeData.email,
-                        dateOfBirth: employeeData.dateOfBirth,
-                        streetAddress: employeeData.streetAddress,
-                        city: employeeData.city,
-                        postalCode: employeeData.postalCode,
-                        country: employeeData.country,
-                    });
-                    setSkills(employeeData.skills);
-                }
-            } catch (error) {
-                setError('Failed to load employee data.');
-            }
-        };
-
-        fetchEmployeeData();
+        if (userID) {
+            apiConnector.getEmployeeById(userID).then();
+        }
     }, [userID]);
+
+}
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
@@ -274,4 +251,3 @@ const EmployeeForm: React.FC = () => {
     );
 };
 
-export default EmployeeForm;
