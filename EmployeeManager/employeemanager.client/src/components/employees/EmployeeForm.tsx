@@ -81,7 +81,7 @@ export default function EmployeeForm() {
     };
 
     const deleteSkill = (index: number) => {
-        setEmployee((prevEmployee) => ({
+        setEmployee(prevEmployee => ({
             ...prevEmployee,
             skills: prevEmployee.skills.filter((_, i) => i !== index)
         }));
@@ -232,15 +232,28 @@ export default function EmployeeForm() {
                                 onChange={(e) => handleSkillChange(index, 'seniorityRating', e.target.value)}
                                 required
                             />
-                            <Button type="button" negative className="delete-skill-button" onClick={() => deleteSkill(index)}>
-                                Delete
-                            </Button>
+                            {skill.skillID !== '' ? (
+                                <Button type="button" negative className="delete-skill-button" onClick={async () => {
+                                    await apiConnector.deleteEmployeeSkill(skill.skillID!);
+                                    deleteSkill(index);
+                                    window.location.reload();
+                                }}>
+                                    Delete
+                                </Button>
+                            ) : (
+                                <Button type="button" negative className="delete-skill-button" onClick={async () => {
+                                    deleteSkill(index);
+                                }}>
+                                    Delete
+                                </Button>
+                            )}
                         </div>
                     ))}
-                    <button type="button" onClick={addSkill}>+ Add New Skill</button>
+                    <Button type="button" onClick={addSkill}>+ Add New Skill</Button>
+                    <Button floated='right' positive type='submit' content='Save and Add Employee' />
+                    <Button as={NavLink} to='/' floated='right' content='Cancel' onClick={handleCancel} />
                 </div>
-                <Button type="submit" className="save-button">Update Employee</Button>
-                <Button type="button" className="cancel-button" onClick={handleCancel}>Cancel</Button>
+                
             </form>
         </div>
     );
