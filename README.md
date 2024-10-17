@@ -63,7 +63,7 @@ Make sure you have the following installed:
    - Right-click on the solution in **Solution Explorer** and select **Properties**.
    - In the **Common Properties** section, go to **Startup Projects**.
    - Select **Multiple startup projects**.
-   - Set the action for both the frontend (if it's in the same solution) and the backend (C# API) to **Start**.
+   - Set the action for both the frontend and the backend (C# API) to **Start**.
 
 4. **Build the Solution**:
    - Go to **Build** > **Build Solution** or press `Ctrl + Shift + B`. This compiles your project and checks for any errors.
@@ -73,4 +73,7 @@ Make sure you have the following installed:
    - If the backend is set up correctly, the frontend should be accessible via the configured URL, usually [https://localhost:5173](http://localhost:5173) for the React app.
 
 6. **Access the Application**:
-   - Open your web browser and navigate to the specified URL (e.g., [https://localhost:5173](https://localhost:5173)) to view and interact with the application.
+   - Open your web browser and navigate to the specified URL (e.g., [https://localhost:5173](https://localhost:5173)) to view and interact with the frontend.
+
+7. **Access the API in Swagger**: https://localhost:7222/swagger/index.html
+   - Open your web browser and navigate to the specified URL (e.g., [https://localhost:7222/swagger/index.html](https://localhost:7222/swagger/inddex.html)) to view and interact with the backend.
