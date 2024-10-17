@@ -4,6 +4,7 @@ import apiConnector from "../../api/apiConnector";
 import { Button } from "semantic-ui-react";
 import { NavLink } from 'react-router-dom';
 import './EmployeeTable.css';
+import icon from '../../assets/Untitled.png'
 
 export default function ListEmployee() {
 
@@ -41,12 +42,12 @@ export default function ListEmployee() {
                         <Button className="filter-button">Filter by</Button>
                         <Button as={NavLink} to="createEmployee" className="new-employee-button" content="+ New Employee" positive />
                     </div>
-                </div>
+                </div> 
                 {filteredEmployees.length === 0 ? (
                     <div className="empty-state">
-                        <img src="/assets/empty-state.JPG" alt="Empty state" className="empty-state-image" />
-                        <p>There is nothing here</p>
-                        <p>Create a new employee by clicking the</p> <strong>New Employee</strong> <p> button to get started</p>
+                        <img src={icon} alt="Empty state" className="empty-state-image" />
+                        <p>There is nothing here <br></br> Create a new employee by clicking the <br></br>
+                           <strong>New Employee</strong> button to get started</p>
                     </div>
                 ) : (
                     <div className="employee-list">

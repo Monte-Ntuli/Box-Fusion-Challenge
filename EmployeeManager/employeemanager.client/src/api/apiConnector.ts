@@ -20,7 +20,7 @@ const apiConnector = {
                 lastName: employee.lastName,
                 email: employee.email,
                 phoneNum: employee.phoneNum,
-                DOB: new Date(employee.DOB),
+                DOB: employee.DOB,
                 isDeleted: employee.isDeleted,
                 addresss: {
                     userID: employee.addresss.userID,
@@ -52,7 +52,7 @@ const apiConnector = {
                 lastName: employee.lastName,
                 email: employee.email,
                 phoneNum: employee.phoneNum,
-                DOB: new Date(employee.DOB),
+                DOB: employee.DOB,
                 isDeleted: employee.isDeleted,
                 addresss: {
                     userID: employee.addresss.userID,

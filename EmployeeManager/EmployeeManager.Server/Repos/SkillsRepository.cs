@@ -98,7 +98,7 @@ namespace EmployeeManager.Server.Repos
 
                 return skills;
             }
-            else if (skillsModel.UserID != null && skillsModel.SkillID == null)
+            else if (skillsModel.UserID != null && skillsModel.SkillID == "")
             {
 
                 skillsModel.Id = Guid.NewGuid();

@@ -17,7 +17,7 @@ export default function EmployeeForm() {
         lastName: '',
         email: '',
         phoneNum: '',
-        DOB: '',
+        DOB: new Date(),
         isDeleted: false,
         addresss: {
             userID: '',
@@ -43,16 +43,33 @@ export default function EmployeeForm() {
         }
     }, [userID]);
 
-    function handleSubmit() {
+    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
+
         if (!userID) {
-            apiConnector.createEmployee(employee).then(() => navigate('/'));
+            apiConnector.createEmployee(employee);
         } else {
             apiConnector.updateEmployee(employee, userID).then(() => navigate('/'));
         }
     }
 
+    //function handleSubmit() {
+    //    if (!userID) {
+    //        apiConnector.createEmployee(employee).then(() => navigate('/'));
+    //    } else {
+    //        apiConnector.updateEmployee(employee, userID).then(() => navigate('/'));
+    //    }
+    //}
+
     function handleInputChange(event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
         const { name, value } = event.target;
+
+        if (name === 'DOB') {
+            setEmployee((prevEmployee) => ({
+                ...prevEmployee,
+                DOB: value ? new Date(value) : new Date
+            }));
+        }
 
         if (name in employee.addresss) {
             setEmployee(prevEmployee => ({
@@ -177,7 +194,7 @@ export default function EmployeeForm() {
                     <input
                         type="date"
                         name="DOB"
-                        value={employee.DOB}
+                        value={employee.DOB instanceof Date ? employee.DOB.toISOString().split('T')[0] : employee.DOB}
                         onChange={handleInputChange}
                         required
                     />
